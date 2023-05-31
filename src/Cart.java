@@ -1,21 +1,15 @@
 import java.util.ArrayList;
 
 public class Cart {
-    public ArrayList<String> cartItem;
-    private Order order;
+    public static ArrayList<Menu> cartItem = new ArrayList<>();
 
-    public Cart() {
-        this.order = new Order();
-        cartItem = new ArrayList<>();
-    }
-
-    public ArrayList<String> addToCard(String menu){
+    public static ArrayList<Menu> addToCart(Menu menu){
         cartItem.add(menu);
         return cartItem;
     }
 
-    public ArrayList<String> confirmCartInfo(){
-        order.getCartInfo(cartItem);
+    public static ArrayList<Menu> confirmCartInfo(){
+        Order.getCartInfo(cartItem);
         return cartItem;
     }
 }

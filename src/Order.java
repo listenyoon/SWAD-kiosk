@@ -1,24 +1,22 @@
 import java.util.ArrayList;
 
 public class Order {
-    public ArrayList<String> cartInfo;
-    public String orderMethod;
-    public boolean isTakeOut;
-    private PaymentSystem paymentSystem;
+    public static ArrayList<Menu> cartInfo;
+    public static String orderMethod;
+    public static boolean isTakeOut;
 
     public Order() {
-        this.paymentSystem = new PaymentSystem();
     }
 
-    public void getCartInfo(ArrayList<String> cartInfo){
-        this.cartInfo = cartInfo;
+    public static void getCartInfo(ArrayList<Menu> cartInfoes){
+        cartInfo = cartInfoes;
     }
-    public void getOrderInfo(String orderMethod, boolean isTakeOut){
-        this.orderMethod = orderMethod;
-        this.isTakeOut = isTakeOut;
-        paymentSystem.paymentInfo(orderMethod);
+    public static void getOrderInfo(String orderMethods, boolean isTakeOuts){
+        orderMethod = orderMethods;
+        isTakeOut = isTakeOuts;
+        PaymentSystem.paymentInfo(orderMethod);
     }
-    public void cancelOrder(){
+    public static void cancelOrder(){
 
     }
 }

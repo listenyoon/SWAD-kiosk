@@ -1,16 +1,20 @@
 public class PaymentSystem {
-    private String paymentInfo;
-    private String cardInfo;
+    private static String paymentInfo;
+    private static String cardInfo;
+    private static String receiptInfo;
 
-    public void cardInfo(String cardInfo) {
-        this.cardInfo = cardInfo;
+    public static void paymentInfo(String infos) {
+        paymentInfo = infos;
     }
-
-    public void paymentInfo(String info){
-        this.paymentInfo = info;
+    
+    public static void cardInfo(String cardInfos) {
+        cardInfo = cardInfos;
+        processPay();
     }
-    private boolean processPay(){
+    
+    private static String processPay(){
         System.out.println("processing...");
-        return true;
+        receiptInfo = paymentInfo + cardInfo;
+        return receiptInfo;
     }
 }

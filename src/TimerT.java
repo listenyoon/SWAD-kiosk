@@ -2,19 +2,15 @@ import java.util.TimerTask;
 import java.util.Timer;
 
 public class TimerT {
+    private static TimerT instance = new TimerT();
     static int count = 0;
     int timeout;
-    Timer timer;
-    TimerTask task;
-
-    public TimerT() {
-        this.timer = new Timer();
-        count = 0;
-        task = new TimerTask() {
+    Timer timer = new Timer();
+    TimerTask task = new TimerTask() {
             @Override
             public void run() {
                 if(count < timeout){
-//                    System.out.println("countdown..." + count);
+                // System.out.println("countdown..." + count);
                     count++;
                 }
                 else{
@@ -23,12 +19,14 @@ public class TimerT {
                 }
             }
         };
-    }
-    private boolean noticeTimeout(){
-        return true;
+
+    private TimerT() { }
+
+    public static TimerT getInstance() {
+        return instance;
     }
 
-    public void setTimer(int time){
+    public synchronized void setTimer(int time){
         this.timeout = time;
         timer.schedule(task, 1000, 1000);
     }
