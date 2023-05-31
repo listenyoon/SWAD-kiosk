@@ -56,12 +56,15 @@ public class Front {
         // 1) 여기에 옵션, 사이즈 등 인자를 넣어서 selectMenu()안에 new Menu 만들어주고 리스트 추가 // 이걸로 하는 것 아니여??
         // 2) new Menu 미리 만들어놓고 Controller.selectMenu() 내부에서는 리스트에 추가만 
         cartItems = Controller.selectMenu(newMenu);
+
         // 카트에 담긴 애들 출력 - 반복문에서 cash 계산 필요
+        System.out.println("[ 장바구니 목록 ]");
         int sum = 0;
-        for (Menu item:cartItems) {
-            System.out.println(item.name);
-            sum += (foodList.get(item.name)).price;
-            System.out.println(sum);
+        for (Menu item : cartItems) {
+            int price = (foodList.get(item.name)).price;
+            sum += price;
+            System.out.println(item.name + "   ₩ " + price);
+            System.out.println("합계 : ₩ " + sum);
         }
         
         System.out.println("메뉴 선택을 완료하시겠습니까? (y/n)");
