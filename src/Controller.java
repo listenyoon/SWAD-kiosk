@@ -24,11 +24,11 @@ public class Controller {
 
     public static ArrayList<Menu> selectMenu(Menu menu){
         cartInfo = Cart.addToCart(menu);
-        return cartInfo; //여기서 displayCart?
+        return cartInfo;
     }
 
     public static ArrayList<Menu> requestCartInfo(){
-        
+        Cart.confirmCartInfo(cartInfo);
         return cartInfo;
     }
 
