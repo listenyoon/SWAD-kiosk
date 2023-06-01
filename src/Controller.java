@@ -32,8 +32,10 @@ public class Controller {
         return cartInfo;
     }
     
-    public static void sendOrderInfo(String method, boolean isTakeOut){
-        Order.getOrderInfo(method, isTakeOut);
+    public static void sendOrderInfo(String method, String isTakeOut) {
+        ArrayList<Menu> cartInfo;
+        cartInfo = Cart.requestCartInfo();
+        Order.getOrderInfo(method, isTakeOut, cartInfo);
     }
     
     public static String requestReceiptInfo(){

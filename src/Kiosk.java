@@ -11,6 +11,7 @@ public class Kiosk {
             status = Front.selectMenu();
         }
         Front.accept();
+        Front.selectOrderInfo();
         System.out.println("끝남");
         in.close();
     }

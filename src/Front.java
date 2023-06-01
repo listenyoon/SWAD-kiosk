@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Front {
-    public static boolean isTakeOut;
+    public static String isTakeOut;
     public static boolean isPrintOut;
     public static String method;
     public static String receiptInfo;
@@ -79,16 +79,16 @@ public class Front {
         return (true);
     }
     
-    //흠....
-    public static void displayCartList(){
+    // //흠....
+    // public static void displayCartList(){
         
-     }
+    //  }
      
      // 장바구니 확인
-     public static void accept() {
-        ArrayList<Menu> cartItems;
+    public static void accept() {
+         ArrayList<Menu> cartItems;
         cartItems = Controller.requestCartInfo(); // controller의 cartInfo 요청
-         
+
         System.out.println("[ 주문 내역 ]");
         int sum = 0;
         for (Menu item : cartItems) {
@@ -96,14 +96,29 @@ public class Front {
             sum += price;
             System.out.println(item.name + "   ₩ " + price);
             System.out.println("합계 : ₩ " + sum);
-            }
         }
-        
-        public static void insertCard(String cardInfo){
-            PaymentSystem.cardInfo(cardInfo);
-        }
+    }
+    
+    public static void selectOrderInfo() {
+        Scanner in = new Scanner(System.in);
 
-     public static void selectReceipt(boolean isPrintOut){
+        System.out.println("포장/매장? : ");
+        String isTakeout = in.nextLine();
+        String method;
+        
+        do {
+            System.out.println("결제 방법을 선택하세요 (카드/바코드) : ");
+            method = in.nextLine();
+        } while (!method.equals("카드") && !method.equals("바코드"));
+        //잔액이 남았을 때 다시 선택하게 말해야됨...... 
+        Controller.sendOrderInfo(method, isTakeOut);
+    }
+        
+    public static void insertCard(String cardInfo){
+        PaymentSystem.cardInfo(cardInfo);
+    }
+
+    public static void selectReceipt(boolean isPrintOut){
         if(isPrintOut) receiptInfo = Controller.requestReceiptInfo();
-     }
+    }
 }

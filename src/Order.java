@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Order {
     public static ArrayList<Menu> cartInfo;
     public static String orderMethod;
-    public static boolean isTakeOut;
+    public static String isTakeOut;
 
     public Order() {
     }
@@ -13,9 +13,17 @@ public class Order {
         cartInfo = cartInfoes;
     }
 
-    public static void getOrderInfo(String orderMethods, boolean isTakeOuts){
+    public static void getOrderInfo(String orderMethods, String isTakeOuts, ArrayList<Menu> cartInfos){
         orderMethod = orderMethods;
         isTakeOut = isTakeOuts;
+        cartInfo = cartInfos;
+        int sum = 0;
+        for (Menu item : cartInfo) {
+            int price = (Controller.foodList.get(item.name)).price;
+            sum += price;
+            System.out.println(item.name + "   ₩ " + price);
+            System.out.println("합계 : ₩ " + sum);
+        }
         PaymentSystem.paymentInfo(orderMethod);
     }
     public static void cancelOrder(){
