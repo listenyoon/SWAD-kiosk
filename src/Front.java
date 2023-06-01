@@ -21,7 +21,7 @@ public class Front {
             foodList = Controller.startOrder();
             //여기서 출력???????
             
-            TimerT.getInstance().setTimer(30);
+            TimerT.getInstance().setTimer(300);
             return true;
         } catch (Exception e) {
             return false;
@@ -34,9 +34,12 @@ public class Front {
     
     //여기서 인자를 넣어주는게 아니라 여기서 컨트롤러로 부를때 인자를 넣어줘야될듯?
     public static boolean selectMenu() {
+        // TimerT.getInstance().setTimer(300);
         Scanner in = new Scanner(System.in);
         System.out.println("메뉴를 입력하세요! :");
         String foodname = in.nextLine();
+        int count;
+        String size;
         
         if (!foodname.equals("불고기버거")
         && !foodname.equals("새우버거")
@@ -47,12 +50,30 @@ public class Front {
             return (true);
         }
         
-        System.out.println("옵션을 입력하세요! : ");
-        String option = in.nextLine();
-        System.out.println("사이즈를 입력하세요 : ");
-        String size = in.nextLine();
+        try {
+            System.out.println("수량을 입력하세요 : ");
+            count = in.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("숫자를 입력해주세요!");
+            return (true);
+        }
         
-        Menu newMenu = new Menu(foodname, option, size);
+        // while(true) {
+        //     try {
+        //         System.out.println("수량을 입력하세요 : ");
+        //         count = in.nextInt();
+        //         break;
+        //     } catch (InputMismatchException e) {
+        //         System.out.println("숫자를 입력해주세요!");
+        //     }
+        // }
+
+        do {
+            System.out.println("사이즈를 입력하세요(소/중/대) : ");
+            size = in.nextLine();       
+        } while (!size.equals("소") && !size.equals("중") && !size.equals("대"));
+        
+        Menu newMenu = new Menu(foodname, count, size);
         // 1) 여기에 옵션, 사이즈 등 인자를 넣어서 selectMenu()안에 new Menu 만들어주고 리스트 추가 // 이걸로 하는 것 아니여??
         // 2) new Menu 미리 만들어놓고 Controller.selectMenu() 내부에서는 리스트에 추가만 
         Controller.selectMenu(newMenu);
@@ -64,11 +85,11 @@ public class Front {
         System.out.println("[ 장바구니 목록 ]");
         int sum = 0;
         for (Menu item : cartItems) {
-            int price = (foodList.get(item.name)).price;
+            int price = (foodList.get(item.name)).price * item.count;
             sum += price;
             System.out.println(item.name + "   ₩ " + price);
-            System.out.println("합계 : ₩ " + sum);
         }
+        System.out.println("합계 : ₩ " + sum);
         
         System.out.println("메뉴 선택을 완료하시겠습니까? (y/n)");
         String answer = in.nextLine();
@@ -86,25 +107,29 @@ public class Front {
      
      // 장바구니 확인
     public static void accept() {
+        // TimerT.getInstance().setTimer(120);
          ArrayList<Menu> cartItems;
         cartItems = Controller.requestCartInfo(); // controller의 cartInfo 요청
 
         System.out.println("[ 주문 내역 ]");
         int sum = 0;
         for (Menu item : cartItems) {
-            int price = (foodList.get(item.name)).price;
+            int price = (foodList.get(item.name)).price * item.count;
             sum += price;
             System.out.println(item.name + "   ₩ " + price);
-            System.out.println("합계 : ₩ " + sum);
         }
+        System.out.println("합계 : ₩ " + sum);
     }
     
     public static void selectOrderInfo() {
         Scanner in = new Scanner(System.in);
-
-        System.out.println("포장/매장? : ");
-        String isTakeout = in.nextLine();
+        String isTakeout;
         String method;
+
+        do {
+            System.out.println("포장/매장? : ");
+            isTakeout = in.nextLine();
+        } while (!isTakeout.equals("포장") && !isTakeout.equals("매장"));
         
         do {
             System.out.println("결제 방법을 선택하세요 (카드/바코드) : ");
@@ -113,12 +138,27 @@ public class Front {
         //잔액이 남았을 때 다시 선택하게 말해야됨...... 
         Controller.sendOrderInfo(method, isTakeOut);
     }
+
+    public static void waitingForCard()
+    {
+        // 카드 입력받는 타이머 설정
+        // 타이머 종료되면 프로그램 종료되니까~~!! ^^
+    }
         
-    public static void insertCard(String cardInfo){
-        PaymentSystem.cardInfo(cardInfo);
+    public static void insertCard() {
+        Scanner in = new Scanner(System.in);
+        String cardName;
+        do {
+            System.out.println("결제할 카드를 입력해주세요 (농협카드/신한카드/국민카드/카카오뱅크) : ");
+            cardName = in.nextLine();
+        } while (!cardName.equals("농협카드") && !cardName.equals("신한카드")
+            && !cardName.equals("카카오뱅크") && !cardName.equals("국민카드"));
+        Controller.cardInfo(cardName);
     }
 
     public static void selectReceipt(boolean isPrintOut){
         if(isPrintOut) receiptInfo = Controller.requestReceiptInfo();
     }
+
+    
 }

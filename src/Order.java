@@ -21,11 +21,11 @@ public class Order {
         for (Menu item : cartInfo) {
             int price = (Controller.foodList.get(item.name)).price;
             sum += price;
-            System.out.println(item.name + "   ₩ " + price);
-            System.out.println("합계 : ₩ " + sum);
         }
-        PaymentSystem.paymentInfo(orderMethod);
+        System.out.println("주문 test");
+        PaymentSystem.paymentInfo(orderMethod, cartInfo, sum);
     }
+
     public static void cancelOrder(){
 
     }
