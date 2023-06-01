@@ -28,6 +28,7 @@ public class TimerT {
 
     public synchronized void setTimer(int time){
         this.timeout = time;
+        // timer.cancel();
         timer.schedule(task, 1000, 1000);
     }
 }

@@ -1,13 +1,13 @@
 public class Menu extends Food {
-    public String option;
+    public int count;
     public String size;
 
-    public Menu(String foodName, String menuOption, String menuSize) {
+    public Menu(String foodName, int menuCount, String menuSize) {
         super(foodName,
             Controller.foodList.get(foodName).price, 
             Controller.foodList.get(foodName).allergyInfo);
         
-        this.option = menuOption;
+        this.count = menuCount;
         this.size = menuSize;
     }
 }

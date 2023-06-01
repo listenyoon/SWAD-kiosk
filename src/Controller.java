@@ -37,6 +37,10 @@ public class Controller {
         cartInfo = Cart.requestCartInfo();
         Order.getOrderInfo(method, isTakeOut, cartInfo);
     }
+
+    public static void cardInfo(String cardInfo) {
+        receiptInfo = PaymentSystem.cardInfo(cardInfo);
+    }
     
     public static String requestReceiptInfo(){
         return receiptInfo;
