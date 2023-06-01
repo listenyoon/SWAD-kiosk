@@ -38,8 +38,6 @@ public class Front {
         Scanner in = new Scanner(System.in);
         System.out.println("메뉴를 입력하세요! :");
         String foodname = in.nextLine();
-        int count;
-        String size;
         
         if (!foodname.equals("불고기버거")
         && !foodname.equals("새우버거")
@@ -50,29 +48,11 @@ public class Front {
             return (true);
         }
         
-        try {
-            System.out.println("수량을 입력하세요 : ");
-            count = in.nextInt();
-        } catch (InputMismatchException e) {
-            System.out.println("숫자를 입력해주세요!");
-            return (true);
-        }
-        
-        // while(true) {
-        //     try {
-        //         System.out.println("수량을 입력하세요 : ");
-        //         count = in.nextInt();
-        //         break;
-        //     } catch (InputMismatchException e) {
-        //         System.out.println("숫자를 입력해주세요!");
-        //     }
-        // }
+        System.out.println("수량을 입력하세요! : ");
+        int count = Integer.parseInt(in.nextLine());
+        System.out.println("사이즈를 입력하세요 : ");
+        String size = in.nextLine();
 
-        do {
-            System.out.println("사이즈를 입력하세요(소/중/대) : ");
-            size = in.nextLine();       
-        } while (!size.equals("소") && !size.equals("중") && !size.equals("대"));
-        
         Menu newMenu = new Menu(foodname, count, size);
         // 1) 여기에 옵션, 사이즈 등 인자를 넣어서 selectMenu()안에 new Menu 만들어주고 리스트 추가 // 이걸로 하는 것 아니여??
         // 2) new Menu 미리 만들어놓고 Controller.selectMenu() 내부에서는 리스트에 추가만 
