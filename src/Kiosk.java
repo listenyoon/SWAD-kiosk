@@ -6,9 +6,10 @@ public class Kiosk {
         System.out.println("hello world");
 
         boolean status = Front.touchScreen();
-        
+        System.out.println("test");
         while (status) {
             status = Front.selectMenu();
+            System.out.println("a");
         }
         Front.accept();
         Front.selectOrderInfo();

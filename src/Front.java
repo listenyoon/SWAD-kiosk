@@ -1,4 +1,7 @@
 import java.util.*;
+import java.util.concurrent.*;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class Front {
     public static String isTakeOut;
@@ -6,6 +9,7 @@ public class Front {
     public static String method;
     public static String panel;
     public static Map<String, Food> foodList;
+    private static int count = 0;
     
     public Front() {
         System.out.println("환영합니다.");
@@ -20,20 +24,21 @@ public class Front {
             foodList = Controller.startOrder();
             //여기서 출력???????
             
-            TimerT.getInstance().setTimer(300);
+            TimerT.getInstance().setTimer(30);
             return true;
         } catch (Exception e) {
             return false;
             // TODO: handle exception
         }
     }
+    
     public static void getMenuInfo(){
         
     }
     
     //여기서 인자를 넣어주는게 아니라 여기서 컨트롤러로 부를때 인자를 넣어줘야될듯?
     public static boolean selectMenu() {
-        //TimerT.getInstance().setTimer(120);
+        TimerT.getInstance().setTimer(20);
         Scanner in = new Scanner(System.in);
         System.out.println("메뉴를 입력하세요! :");
         String foodname = in.nextLine();
@@ -44,6 +49,7 @@ public class Front {
         && !foodname.equals("감자튀김")
         && !foodname.equals("콜라")
         && !foodname.equals("사이다")) {
+            in.close();
             return (true);
         }
         
@@ -74,8 +80,10 @@ public class Front {
         String answer = in.nextLine();
         if (answer.equals("y")) {
             System.out.println("카트 정보 보내줘잉");
+            // in.close();
             return (false);
         }
+        // in.close();
         return (true);
     }
     
@@ -86,7 +94,7 @@ public class Front {
      
      // 장바구니 확인
     public static void accept() {
-        // TimerT.getInstance().setTimer(120);
+        TimerT.getInstance().setTimer(20);
          ArrayList<Menu> cartItems;
         cartItems = Controller.requestCartInfo(); // controller의 cartInfo 요청
 
@@ -101,6 +109,7 @@ public class Front {
     }
     
     public static void selectOrderInfo() {
+        TimerT.getInstance().setTimer(20);
         Scanner in = new Scanner(System.in);
         String isTakeout;
         String method;
@@ -121,10 +130,12 @@ public class Front {
     public static void waitingForCard()
     {
         // 카드 입력받는 타이머 설정
+        TimerT.getInstance().setTimer(20);
         // 타이머 종료되면 프로그램 종료되니까~~!! ^^
     }
         
     public static void insertCard() {
+        TimerT.getInstance().setTimer(20);
         Scanner in = new Scanner(System.in);
         String cardName;
         do {
@@ -136,11 +147,48 @@ public class Front {
     }
 
     public static void printReceipt(){
+        String answer = "n";
+        
+        // int timeout = 10;
+        // Timer timer = new Timer();
+        // TimerTask task = new TimerTask() {
+        //     @Override
+        //     public void run() {
+        //         if(count <= 5){
+        //         // System.out.println("countdown..." + count);
+        //             count++;
+        //         }
+        //         else{
+        //             timer.cancel();
+        //             System.out.println("시간이 다 되었습니다.");
+        //             return;
+        //         }
+        //     }
+        // };
+        // timer.schedule(task, 1000, 1000);
+        final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+        final Runnable runnable = new Runnable() {
+            int countdownStarter = 20;
+
+            public void run() {
+
+                System.out.println(countdownStarter);
+                countdownStarter--;
+
+                if (countdownStarter < 0) {
+                    System.out.println("Timer Over!");
+                    scheduler.shutdown();
+                }
+            }
+        };
+        scheduler.scheduleAtFixedRate(runnable, 0, 1, SECONDS);
+
         String receiptInfo;
         int orderNumber;
         Scanner in = new Scanner(System.in);
         System.out.println("영수증을 출력하시겠습니까? (y/n)");
-        String answer = in.nextLine();
+        answer = in.nextLine();
         if (answer.equals("y")) {
             receiptInfo = Controller.requestReceiptInfo();
             System.out.println(receiptInfo);
@@ -149,6 +197,7 @@ public class Front {
             orderNumber = Controller.requestOrderNumber();
             System.out.println("주문 번호 : " + orderNumber);
         }
+        in.close();
         Controller.endOrder();
     }
 
