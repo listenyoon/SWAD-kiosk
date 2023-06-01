@@ -4,7 +4,6 @@ public class Front {
     public static String isTakeOut;
     public static boolean isPrintOut;
     public static String method;
-    public static String receiptInfo;
     public static String panel;
     public static Map<String, Food> foodList;
     
@@ -34,7 +33,7 @@ public class Front {
     
     //여기서 인자를 넣어주는게 아니라 여기서 컨트롤러로 부를때 인자를 넣어줘야될듯?
     public static boolean selectMenu() {
-        // TimerT.getInstance().setTimer(300);
+        //TimerT.getInstance().setTimer(120);
         Scanner in = new Scanner(System.in);
         System.out.println("메뉴를 입력하세요! :");
         String foodname = in.nextLine();
@@ -136,8 +135,21 @@ public class Front {
         Controller.cardInfo(cardName);
     }
 
-    public static void selectReceipt(boolean isPrintOut){
-        if(isPrintOut) receiptInfo = Controller.requestReceiptInfo();
+    public static void printReceipt(){
+        String receiptInfo;
+        int orderNumber;
+        Scanner in = new Scanner(System.in);
+        System.out.println("영수증을 출력하시겠습니까? (y/n)");
+        String answer = in.nextLine();
+        if (answer.equals("y")) {
+            receiptInfo = Controller.requestReceiptInfo();
+            System.out.println(receiptInfo);
+        }
+        else {
+            orderNumber = Controller.requestOrderNumber();
+            System.out.println("주문 번호 : " + orderNumber);
+        }
+        Controller.endOrder();
     }
 
     

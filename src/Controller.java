@@ -9,7 +9,7 @@ public class Controller {
         put("콜라", new Food("콜라", 1500, "없음"));
         put("사이다", new Food("사이다", 1500, "없음"));
     }};
-    
+    private static int orderNumber;
     private static String receiptInfo;
     
     public Controller() {
@@ -35,18 +35,23 @@ public class Controller {
     public static void sendOrderInfo(String method, String isTakeOut) {
         ArrayList<Menu> cartInfo;
         cartInfo = Cart.requestCartInfo();
-        Order.getOrderInfo(method, isTakeOut, cartInfo);
+        orderNumber = Order.getOrderInfo(method, isTakeOut, cartInfo);
     }
 
-    public static void cardInfo(String cardInfo) {
-        receiptInfo = PaymentSystem.cardInfo(cardInfo);
+    public static void cardInfo(String cardName) {
+        receiptInfo = PaymentSystem.cardInfo(cardName);
     }
     
     public static String requestReceiptInfo(){
         return receiptInfo;
     }
     
-    public static String endOrder() {
-        return "end";
+    public static int requestOrderNumber() {
+        return orderNumber;
+    }
+
+    public static void endOrder() {
+        // 프로그램 종료?
+        // 초기화면이 뭐지..???
     }
 }

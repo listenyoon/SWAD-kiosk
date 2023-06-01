@@ -4,6 +4,7 @@ public class Order {
     public static ArrayList<Menu> cartInfo;
     public static String orderMethod;
     public static String isTakeOut;
+    private static int orderNumber = 0;
 
     public Order() {
     }
@@ -13,17 +14,14 @@ public class Order {
         cartInfo = cartInfoes;
     }
 
-    public static void getOrderInfo(String orderMethods, String isTakeOuts, ArrayList<Menu> cartInfos){
+    public static int getOrderInfo(String orderMethods, String isTakeOuts, ArrayList<Menu> cartInfos){
         orderMethod = orderMethods;
         isTakeOut = isTakeOuts;
         cartInfo = cartInfos;
-        int sum = 0;
-        for (Menu item : cartInfo) {
-            int price = (Controller.foodList.get(item.name)).price * item.count;
-            sum += price;
-        }
+        orderNumber++;
         System.out.println("주문 test");
-        PaymentSystem.paymentInfo(orderMethod, cartInfo, sum);
+        PaymentSystem.paymentInfo(orderMethod, cartInfo, orderNumber);
+        return orderNumber;
     }
 
     public static void cancelOrder(){

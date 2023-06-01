@@ -13,6 +13,7 @@ public class Kiosk {
         Front.accept();
         Front.selectOrderInfo();
         Front.insertCard();
+        Front.printReceipt();
         System.out.println("끝남");
         in.close();
     }
