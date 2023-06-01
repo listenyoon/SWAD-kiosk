@@ -19,7 +19,7 @@ public class Order {
         cartInfo = cartInfos;
         int sum = 0;
         for (Menu item : cartInfo) {
-            int price = (Controller.foodList.get(item.name)).price;
+            int price = (Controller.foodList.get(item.name)).price * item.count;
             sum += price;
         }
         System.out.println("주문 test");
