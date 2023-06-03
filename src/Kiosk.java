@@ -1,20 +1,15 @@
-import java.util.Scanner;
-
 public class Kiosk {
     public static void main(String args[]){
-        Scanner in = new Scanner(System.in);
-        System.out.println("hello world");
-
-        boolean status = Front.touchScreen();
-        
+        boolean status = true;
         while (status) {
-            status = Front.selectMenu();
+            System.out.println("키오스크 주문을 시작합니다.");
+            Front.touchScreen();
+            Front.selectMenu();
+            Front.accept();
+            Front.selectOrderInfo();
+            Front.insertCard();
+            Front.printReceipt();
         }
-        Front.accept();
-        Front.selectOrderInfo();
-        Front.insertCard();
-        Front.printReceipt();
         System.out.println("끝남");
-        in.close();
     }
 }

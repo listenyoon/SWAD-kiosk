@@ -6,8 +6,8 @@ public class Controller {
         put("새우버거", new Food("새우버거", 4500, "밀, 대두, 새우"));
         put("치킨버거", new Food("치킨버거", 4500, "밀, 대두, 닭고기"));
         put("감자튀김", new Food("감자튀김", 2000, "없음"));
-        put("콜라", new Food("콜라", 1500, "없음"));
-        put("사이다", new Food("사이다", 1500, "없음"));
+        put("콜라", new Food("콜라", 2000, "없음"));
+        put("사이다", new Food("사이다", 2000, "없음"));
     }};
     private static int orderNumber;
     private static String receiptInfo;
@@ -21,8 +21,9 @@ public class Controller {
         return foodList;
     }
     
-    public static void selectMenu(Menu menu){
-        Cart.addToCart(menu);
+    public static void selectMenu(String foodname, int count, String size){
+        Menu newMenu = new Menu(foodname, count, size);
+        Cart.addToCart(newMenu);
         //return cartInfo;
     }
     
