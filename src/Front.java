@@ -29,12 +29,31 @@ public class Front {
         }
     }
     
-    public static void getMenuInfo(){
+    public static void printMenuInfo(){
+        StringBuilder menuBoard = new StringBuilder();
+        menuBoard.append("\n                  [ 메뉴판 ]                  \n")
+            .append("----------------------------------------------\n")
+            .append(" 상품명            단가      알러지 주의 성분 \n")
+            .append("----------------------------------------------\n");
         
+        for (Food food : foodList.values()) {
+            menuBoard.append(" " + food.name + "        ");
+            for (int i = 0; i < 5 - food.name.length(); i++)
+                menuBoard.append("  ");
+
+            menuBoard.append(food.price + " ");
+            for (int i = 0; i < 10 - String.valueOf(food.price).length(); i++)
+                menuBoard.append(" ");
+            
+            menuBoard.append(food.allergyInfo + '\n');
+        }
+        menuBoard.append("----------------------------------------------\n");
+        System.out.println(menuBoard);
     }
     
     //여기서 인자를 넣어주는게 아니라 여기서 컨트롤러로 부를때 인자를 넣어줘야될듯?
     public static void selectMenu() {
+        printMenuInfo();
         TimerT.getInstance().setTimer(120);
         Scanner in = new Scanner(System.in);
         while (true) {
@@ -122,7 +141,6 @@ public class Front {
             && !foodname.equals("치킨버거") && !foodname.equals("감자튀김")
             && !foodname.equals("콜라") && !foodname.equals("사이다"))
                 continue;
-            System.out.println("delete");
             Controller.deleteMenu(foodname); // 요 안에서 Cart.deleteMenu(foodname) 해서 cartInfo의 foodname 삭제
         }
 
@@ -143,7 +161,7 @@ public class Front {
         accept();
     }
 
-    public static void selectOrderInfo() {
+    public static String selectOrderInfo() {
         TimerT.getInstance().setTimer(120);
         Scanner in = new Scanner(System.in);
         String isTakeout;
@@ -160,13 +178,25 @@ public class Front {
         } while (!method.equals("카드") && !method.equals("바코드"));
         //잔액이 남았을 때 다시 선택하게 말해야됨...... 
         Controller.sendOrderInfo(method, isTakeOut);
+        if (method.equals("카드"))
+            return "card";
+        else if (method.equals("바코드"))
+            return "barcode";
+        else {
+            return "unknown";
+        }
     }
 
     public static void waitingForCard()
     {
         // 카드 입력받는 타이머 설정
         TimerT.getInstance().setTimer(120);
-        // 타이머 종료되면 프로그램 종료되니까~~!! ^^
+    }
+
+    public static void waitingForBarcode()
+    {
+        // 카드 입력받는 타이머 설정
+        TimerT.getInstance().setTimer(120);
     }
         
     public static void insertCard() {
@@ -178,7 +208,25 @@ public class Front {
             cardName = in.nextLine();
         } while (!cardName.equals("농협카드") && !cardName.equals("신한카드")
             && !cardName.equals("카카오뱅크") && !cardName.equals("국민카드"));
-        Controller.cardInfo(cardName);
+        if (Controller.cardInfo(cardName).equals("fail")) {
+            System.out.println("잔액 부족으로 결제가 실패하였습니다. 다른 결제수단을 투입해주십시오.");
+            insertCard();
+        }
+    }
+
+    public static void scanBarcode() {
+        TimerT.getInstance().setTimer(120);
+        Scanner in = new Scanner(System.in);
+        String coupon;
+        do {
+            System.out.print("읽어들일 바코드를 입력해주세요 : ");
+            coupon = in.nextLine();
+        } while (!coupon.equals("2000원 할인쿠폰") && !coupon.equals("10% 할인쿠폰")
+            && !coupon.equals("20% 할인쿠폰") && !coupon.equals("30% 할인쿠폰"));
+        if ((Controller.barcodeInfo(coupon)).equals("fail")) {
+            System.out.println("잔액 결제할 카드를 투입해 주십시오.");
+            insertCard();
+        }
     }
 
     public static void printReceipt(){
