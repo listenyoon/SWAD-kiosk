@@ -1,13 +1,13 @@
-import java.util.ArrayList;
+import java.util.*;
 
 public class PaymentSystem {
     private static String paymentMethod;
     private static String cardName;
     private static int orderNumber;
     private static StringBuilder receiptInfo;
-    private static ArrayList<Menu> cartItems;
+    private static HashMap<String, Menu> cartItems;
 
-    public static void paymentInfo(String method, ArrayList<Menu> cartItemss, int _orderNumber) {
+    public static void paymentInfo(String method, HashMap<String, Menu> cartItemss, int _orderNumber) {
         paymentMethod = method;
         orderNumber = _orderNumber;
         cartItems = cartItemss;
@@ -32,7 +32,7 @@ public class PaymentSystem {
             .append(" 상품명            단가      수량      금액 \n")
             .append("----------------------------------------------\n");
             int sum = 0;
-            for (Menu item : cartItems) {
+            for (Menu item : cartItems.values()) {
             int price = (Controller.foodList.get(item.name)).price;
             sum += price * item.count;
 

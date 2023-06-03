@@ -1,7 +1,4 @@
 import java.util.*;
-import java.util.concurrent.*;
-
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class Front {
     public static String isTakeOut;
@@ -41,7 +38,7 @@ public class Front {
         TimerT.getInstance().setTimer(120);
         Scanner in = new Scanner(System.in);
         while (true) {
-            System.out.print("메뉴를 입력하세요! : ");
+            System.out.print("메뉴 이름을 입력하세요! : ");
             String foodname = in.nextLine();
             
             if (!foodname.equals("불고기버거")
@@ -63,13 +60,13 @@ public class Front {
             // 2) new Menu 미리 만들어놓고 Controller.selectMenu() 내부에서는 리스트에 추가만 
             Controller.selectMenu(foodname, count, size);
             
-            ArrayList<Menu> cartItems;
+            HashMap<String, Menu> cartItems;
             cartItems = Controller.requestCartInfo();
     
             // 카트에 담긴 애들 출력 - 반복문에서 cash 계산 필요
             System.out.println("[ 장바구니 목록 ]");
             int sum = 0;
-            for (Menu item : cartItems) {
+            for (Menu item : cartItems.values()) {
                 int price = (foodList.get(item.name)).price * item.count;
                 sum += price;
                 System.out.println(item.name + "   ₩ " + price);
@@ -92,12 +89,12 @@ public class Front {
     public static void accept() {
         Scanner in = new Scanner(System.in);
         TimerT.getInstance().setTimer(20);
-        ArrayList<Menu> cartItems;
+        HashMap<String, Menu> cartItems;
         cartItems = Controller.requestCartInfo(); // controller의 cartInfo 요청
 
         System.out.println("[ 주문 내역 ]");
         int sum = 0;
-        for (Menu item : cartItems) {
+        for (Menu item : cartItems.values()) {
             int price = (foodList.get(item.name)).price * item.count;
             sum += price;
             System.out.println(item.name + "   ₩ " + price);
@@ -125,7 +122,7 @@ public class Front {
                 continue;
             if (foodname.equals("n"))
                 break;
-            
+            // Controller.deleteMenu(foodname); // 요 안에서 Cart.deleteMenu(foodname) 해서 cartInfo의 foodname 삭제
         }
 
         while (true) {
@@ -137,10 +134,10 @@ public class Front {
                 continue;
             if (foodname.equals("n"))
                 break;
-        
+            // Controller.deleteMenu(foodname);
             int count = in.nextInt();
             String size = in.next();
-
+            // Controller.selectMenu(foodname, count, size);
         }
         selectMenu();
     }

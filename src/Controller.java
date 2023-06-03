@@ -23,20 +23,18 @@ public class Controller {
     
     public static void selectMenu(String foodname, int count, String size){
         Menu newMenu = new Menu(foodname, count, size);
-        Cart.addToCart(newMenu);
+        Cart.addToCart(foodname, newMenu);
         //return cartInfo;
     }
     
-    public static ArrayList<Menu> requestCartInfo(){
-        ArrayList<Menu> cartInfo;
+    public static HashMap<String, Menu> requestCartInfo(){
+        HashMap<String, Menu> cartInfo;
         cartInfo = Cart.requestCartInfo();
         return cartInfo;
     }
     
     public static void sendOrderInfo(String method, String isTakeOut) {
-        ArrayList<Menu> cartInfo;
-        cartInfo = Cart.requestCartInfo();
-        orderNumber = Order.getOrderInfo(method, isTakeOut, cartInfo);
+        orderNumber = Order.getOrderInfo(method, isTakeOut);
     }
 
     public static void cardInfo(String cardName) {
