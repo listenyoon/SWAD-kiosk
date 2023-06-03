@@ -5,7 +5,7 @@ public class TimerT {
     private static TimerT instance = new TimerT();
     static int count = 0;
     int timeout;
-    static Timer timer;
+    static Timer timer = new Timer();
     static TimerTask task;
 
     private TimerT() { }
@@ -17,8 +17,7 @@ public class TimerT {
     public synchronized void setTimer(int time){
         count = 0;
         this.timeout = time;
-        timer = new Timer();
-                task = new TimerTask() {
+        task = new TimerTask() {
             @Override
             public void run() {
                 if(count < timeout){
@@ -26,8 +25,8 @@ public class TimerT {
                     count++;
                 }
                 else{
-                    timer.cancel();
                     System.out.println("우왕 시간이 다 되었습니다.");
+                    cancel();
                     System.exit(1);
                 }
             }
@@ -49,6 +48,7 @@ public class TimerT {
                 else{
                     timer.cancel();
                     System.out.println("웨이팅 시간이 다 되었습니다.");
+                    return;
                 }
             }
         };

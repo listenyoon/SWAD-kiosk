@@ -19,7 +19,6 @@ public class Order {
         isTakeOut = isTakeOuts;
         cartInfo = cartInfos;
         orderNumber++;
-        System.out.println("주문 test");
         PaymentSystem.paymentInfo(orderMethod, cartInfo, orderNumber);
         return orderNumber;
     }
