@@ -21,14 +21,17 @@ public class PaymentSystem {
         paymentMethod = method;
         orderNumber = _orderNumber;
         cartItems = cartItemss;
-        Front.waitingForCard();
+        if (paymentMethod.equals("카드"))
+            Front.waitingForCard();
+        else if (paymentMethod.equals("바코드"))
+            Front.waitingForBarcode();
     }
     
-    public static String cardInfo(String cardInfos) {
+    public static String cardInfo(String cardName) {
         paymentMethod = "카드";
-        mean = cardInfos;
-        String receipt = processPay();
-        return receipt;
+        mean = cardName;
+        String receiptInfo = processPay();
+        return receiptInfo;
     }
 
     public static String barcodeInfo(String coupon) {

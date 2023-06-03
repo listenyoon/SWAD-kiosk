@@ -191,7 +191,12 @@ public class Front {
     {
         // 카드 입력받는 타이머 설정
         TimerT.getInstance().setTimer(120);
-        // 타이머 종료되면 프로그램 종료되니까~~!! ^^
+    }
+
+    public static void waitingForBarcode()
+    {
+        // 카드 입력받는 타이머 설정
+        TimerT.getInstance().setTimer(120);
     }
         
     public static void insertCard() {

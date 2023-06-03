@@ -37,8 +37,8 @@ public class Controller {
         return cartInfo;
     }
     
-    public static void sendOrderInfo(String method, String isTakeOut) {
-        orderNumber = Order.getOrderInfo(method, isTakeOut);
+    public static void sendOrderInfo(String orderMethod, String isTakeOut) {
+        orderNumber = Order.getOrderInfo(orderMethod, isTakeOut);
     }
 
     public static String cardInfo(String cardName) {
