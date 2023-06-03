@@ -9,6 +9,13 @@ public class Cart {
         //retucrn cartInfo;
     }
 
+    public static void deleteMenu(String foodname) {
+        if (cartInfo.containsKey(foodname)) {
+            cartInfo.remove(foodname);
+            Order.setCartInfo(cartInfo);
+        }
+    }
+
     public static HashMap<String, Menu> requestCartInfo(){
         Order.setCartInfo(cartInfo);
         return cartInfo;

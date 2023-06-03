@@ -27,6 +27,10 @@ public class Controller {
         //return cartInfo;
     }
     
+    public static void deleteMenu(String foodname) {
+        Cart.deleteMenu(foodname);
+    }
+
     public static HashMap<String, Menu> requestCartInfo(){
         HashMap<String, Menu> cartInfo;
         cartInfo = Cart.requestCartInfo();

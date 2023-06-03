@@ -88,7 +88,7 @@ public class Front {
      // 장바구니 확인
     public static void accept() {
         Scanner in = new Scanner(System.in);
-        TimerT.getInstance().setTimer(20);
+        TimerT.getInstance().setTimer(120);
         HashMap<String, Menu> cartItems;
         cartItems = Controller.requestCartInfo(); // controller의 cartInfo 요청
 
@@ -116,30 +116,31 @@ public class Front {
         while (true) {
             System.out.print("삭제하려는 메뉴를 입력하세요! 없을 경우, n를 입력하세요 : ");
             String foodname = in.nextLine();
-            if (!foodname.equals("불고기버거") && !foodname.equals("새우버거")
+            if (foodname.equals("n"))
+                break;
+            else if (!foodname.equals("불고기버거") && !foodname.equals("새우버거")
             && !foodname.equals("치킨버거") && !foodname.equals("감자튀김")
             && !foodname.equals("콜라") && !foodname.equals("사이다"))
                 continue;
-            if (foodname.equals("n"))
-                break;
-            // Controller.deleteMenu(foodname); // 요 안에서 Cart.deleteMenu(foodname) 해서 cartInfo의 foodname 삭제
+            System.out.println("delete");
+            Controller.deleteMenu(foodname); // 요 안에서 Cart.deleteMenu(foodname) 해서 cartInfo의 foodname 삭제
         }
 
         while (true) {
-            System.out.print("수정하려는 메뉴 이름, 수량, 사이즈를 차례대로 입력하세요! 없을 경우, n를 입력하세요 : ");
+            System.out.print("수정하거나 추가하려는 메뉴 이름, 수량, 사이즈를 차례대로 입력하세요! 없을 경우, n를 입력하세요 : ");
             String foodname = in.next();
-            if (!foodname.equals("불고기버거") && !foodname.equals("새우버거")
+            if (foodname.equals("n"))
+                break;
+            else if (!foodname.equals("불고기버거") && !foodname.equals("새우버거")
             && !foodname.equals("치킨버거") && !foodname.equals("감자튀김")
             && !foodname.equals("콜라") && !foodname.equals("사이다"))
                 continue;
-            if (foodname.equals("n"))
-                break;
-            // Controller.deleteMenu(foodname);
+            Controller.deleteMenu(foodname);
             int count = in.nextInt();
             String size = in.next();
-            // Controller.selectMenu(foodname, count, size);
+            Controller.selectMenu(foodname, count, size);
         }
-        selectMenu();
+        accept();
     }
 
     public static void selectOrderInfo() {
