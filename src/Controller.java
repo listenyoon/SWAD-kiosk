@@ -41,10 +41,16 @@ public class Controller {
         orderNumber = Order.getOrderInfo(method, isTakeOut);
     }
 
-    public static void cardInfo(String cardName) {
+    public static String cardInfo(String cardName) {
         receiptInfo = PaymentSystem.cardInfo(cardName);
+        return receiptInfo;
     }
     
+    public static String barcodeInfo(String coupon) {
+        receiptInfo = PaymentSystem.barcodeInfo(coupon);
+        return receiptInfo;
+    }
+
     public static String requestReceiptInfo(){
         return receiptInfo;
     }
