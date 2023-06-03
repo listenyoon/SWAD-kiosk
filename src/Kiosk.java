@@ -9,7 +9,7 @@ public class Kiosk {
             Front.selectOrderInfo();
             Front.insertCard();
             Front.printReceipt();
+            System.out.println("주문 및 결제 완료");
         }
-        System.out.println("끝남");
     }
 }
