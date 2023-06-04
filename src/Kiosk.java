@@ -852,22 +852,27 @@ public class Kiosk extends JFrame {
     }
 
     public static void main(String args[]){
+        // GUI로 실행시키고 싶은 경우 (결제 시스템)
+        // CLI 부분 주석처리하고 실행하기
         new Kiosk();
-//        boolean status = true;
-//        String method = "card";
-//        while (status) {
-//            System.out.println("키오스크 주문을 시작합니다.");
-//            Front.touchScreen();
-//            Front.selectMenu();
-//            Front.accept();
-//            method = Front.selectOrderInfo();
-//            System.out.println(method);
-//            if (method.equals("card"))
-//                Front.insertCard();
-//            else if (method.equals("barcode"))
-//                Front.scanBarcode();
-//            Front.printReceipt();
-//            System.out.println("주문 및 결제 완료\n");
-//        }
+
+        // CLI로 실행시키고 싶은 경우 (결제 시스템, 장바구니 수정)
+        // GUI 부분 주석처리하고 실행하기
+        boolean status = true;
+        String method = "card";
+        while (status) {
+            System.out.println("키오스크 주문을 시작합니다.");
+            Front.touchScreen();
+            Front.selectMenu();
+            Front.accept();
+            method = Front.selectOrderInfo();
+            System.out.println(method);
+            if (method.equals("card"))
+                Front.insertCard();
+            else if (method.equals("barcode"))
+                Front.scanBarcode();
+            Front.printReceipt();
+            System.out.println("주문 및 결제 완료\n");
+        }
     }
 }
