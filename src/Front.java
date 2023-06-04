@@ -123,7 +123,8 @@ public class Front {
         System.out.print("주문을 수정하시겠습니까? : ");
         String answer = in.nextLine();
         if (answer.equals("y"))
-            editCartList();
+            editCartList();  // accept() 함수의 흐름 중 
+            //주문을 수정하기를 원할 경우 editCartList()로 들어감.
         else if (answer.equals("n"))
             return;
     }
@@ -132,6 +133,8 @@ public class Front {
     {
         TimerT.getInstance().setTimer(120);
         Scanner in = new Scanner(System.in);
+        // case 1) 사용자가 메뉴를 삭제하고 싶은 경우 
+        //         삭제하려는 메뉴 이름을 입력받고, deleteMenu를 호출하여 Controller->Cart의 장바구니 리스트에서 해당 메뉴를 삭제한다.
         while (true) {
             System.out.print("삭제하려는 메뉴를 입력하세요! 없을 경우, n를 입력하세요 : ");
             String foodname = in.nextLine();
@@ -141,9 +144,14 @@ public class Front {
             && !foodname.equals("치킨버거") && !foodname.equals("감자튀김")
             && !foodname.equals("콜라") && !foodname.equals("사이다"))
                 continue;
-            Controller.deleteMenu(foodname); // 요 안에서 Cart.deleteMenu(foodname) 해서 cartInfo의 foodname 삭제
+            Controller.deleteMenu(foodname);
         }
 
+        // case 2) 사용자가 메뉴를 뒤늦게 추가하고 싶은 경우 
+        //         추가하려는 메뉴 이름과 수량, 사이즈를 입력받고 Controller.selectMenu()를 호출해 Cart의 장바구니 리스트에 추가한다.
+
+        // case 3) 사용자가 메뉴 옵션(수량, 사이즈)을 수정하고 싶은 경우 
+        //         이미 해당 메뉴가 들어와있는지 장바구니 리스트에서 조회한 후 삭제하고, 새로운 입력값으로 다시 장바구니 리스트에 넣는다.
         while (true) {
             System.out.print("수정하거나 추가하려는 메뉴 이름, 수량, 사이즈를 차례대로 입력하세요! 없을 경우, n를 입력하세요 : ");
             String foodname = in.next();
@@ -158,7 +166,7 @@ public class Front {
             String size = in.next();
             Controller.selectMenu(foodname, count, size);
         }
-        accept();
+        accept();  // 다시 주문 정보를 출력하고, Order에게로 수정된 장바구니 리스트를 전달해준다.
     }
 
     public static String selectOrderInfo() {
