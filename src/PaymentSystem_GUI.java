@@ -22,9 +22,9 @@ public class PaymentSystem_GUI {
         orderNumber = _orderNumber;
         cartItems = cartItemss;
         if (paymentMethod.equals("카드"))
-            Front.waitingForCard();
+            Front_GUI.waitingForCard();
         else if (paymentMethod.equals("바코드"))
-            Front.waitingForBarcode();
+            Front_GUI.waitingForBarcode();
     }
     
     public static String cardInfo(String cardName) {

@@ -292,7 +292,7 @@ public class Kiosk extends JFrame {
         // 사이다
         ciderButton = new JButton("사이다");
         ciderButton.setText("<HTML><body><center>사이다<br>2000<br>없음</center></body></HTML>");
-        friesButton.setFont(font);
+        ciderButton.setFont(font);
         ciderButton.setBackground(Color.WHITE);
         ciderButton.setPreferredSize(new Dimension(110,60));
         // cider 버튼을 누를 때의 동작 구현
@@ -858,21 +858,21 @@ public class Kiosk extends JFrame {
 
         // CLI로 실행시키고 싶은 경우 (결제 시스템, 장바구니 수정)
         // GUI 부분 주석처리하고 실행하기
-        boolean status = true;
-        String method = "card";
-        while (status) {
-            System.out.println("키오스크 주문을 시작합니다.");
-            Front.touchScreen();
-            Front.selectMenu();
-            Front.accept();
-            method = Front.selectOrderInfo();
-            System.out.println(method);
-            if (method.equals("card"))
-                Front.insertCard();
-            else if (method.equals("barcode"))
-                Front.scanBarcode();
-            Front.printReceipt();
-            System.out.println("주문 및 결제 완료\n");
-        }
+//        boolean status = true;
+//        String method = "card";
+//        while (status) {
+//            System.out.println("키오스크 주문을 시작합니다.");
+//            Front.touchScreen();
+//            Front.selectMenu();
+//            Front.accept();
+//            method = Front.selectOrderInfo();
+//            System.out.println(method);
+//            if (method.equals("card"))
+//                Front.insertCard();
+//            else if (method.equals("barcode"))
+//                Front.scanBarcode();
+//            Front.printReceipt();
+//            System.out.println("주문 및 결제 완료\n");
+//        }
     }
 }

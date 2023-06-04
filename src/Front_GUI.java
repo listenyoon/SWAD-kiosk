@@ -20,7 +20,7 @@ public class Front_GUI {
 
     public static boolean touchScreen(){
         try {
-            foodList = Controller.startOrder();
+            foodList = Controller_GUI.startOrder();
             //여기서 출력???????
 
             TimerT.getInstance().setTimer(30);
